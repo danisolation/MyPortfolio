@@ -9,6 +9,7 @@ import {
   Github,
   Linkedin,
   Mail,
+  Menu,
   Phone,
   X,
 } from "lucide-react";
@@ -218,23 +219,46 @@ export default function Portfolio() {
     };
   }, []);
 
-  const handleClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace("#", "");
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth" });
     }
-  };
+    setActiveSection(href.slice(1))
+    setIsMobileMenuOpen(false)
+    window.history.pushState({}, '', href)
+  }
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+ 
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900 bg-opacity-90 backdrop-blur-sm">
-        <nav className="container mx-auto px-6 py-4">
-          <ul className="flex justify-center space-x-8">
+       <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900 bg-opacity-90 backdrop-blur-sm">
+      <nav className="container mx-auto px-6 py-4">
+        <div className="flex justify-end md:justify-center items-center">
+          <button
+            className="md:hidden text-white focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {!isMobileMenuOpen && <Menu size={24} />}
+          </button>
+          <ul className="hidden md:flex justify-center space-x-8">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
@@ -251,8 +275,42 @@ export default function Portfolio() {
               </li>
             ))}
           </ul>
-        </nav>
-      </header>
+        </div>
+      </nav>
+      {/* Mobile menu */}
+      <div
+        className={`md:hidden fixed inset-y-0 right-0 w-64 bg-gray-900 bg-opacity-95 transform ${
+          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        } transition-transform duration-300 ease-in-out z-50`}
+      >
+        <div className="p-6 bg-black">
+          <button
+            className="text-white mb-6 focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+          <ul className="space-y-4">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`block transition-colors duration-300 ${
+                    activeSection === item.href.slice(1)
+                      ? "text-blue-400 font-bold"
+                      : "text-white hover:text-blue-400"
+                  }`}
+                  onClick={(e) => handleClick(e, item.href)}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </header>
 
       <main>
         <section
