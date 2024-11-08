@@ -409,7 +409,7 @@ export default function Portfolio() {
                     className="w-full h-48 object-cover"
                     width={10000}
                     height={10000}
-                    unoptimized
+                    
                   />
                   <div className="p-6">
                     <h3 className="text-xl font-semibold mb-2">
@@ -551,7 +551,7 @@ export default function Portfolio() {
                   className="w-full h-64 object-cover rounded-lg"
                   width={10000}
                   height={10000}
-                  unoptimized
+                  
                 />
 
                 {selectedProject.media.length > 1 && (
