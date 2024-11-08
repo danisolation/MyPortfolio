@@ -359,8 +359,8 @@ export default function Portfolio() {
                   src="/images/pro5.jpg"
                   alt="Tran Quoc Dung"
                   className="rounded-full mx-auto"
-                  width={400}
-                  height={400}
+                  width={300}
+                  height={300}
                 />
               </div>
               <div className="md:w-1/2">
