@@ -96,8 +96,8 @@ export default function Portfolio() {
       link: "https://github.com/danisolation/app",
       description:
         "Design and build a smart home monitoring and control system thatautomates electronic devices and provides security monitoringand protection. The system integrates sensors, control devices, mobile applications and computers to create a smart, flexible and convenient system.",
-      technologies: ["React", "Node.js", "MongoDB", "Adafruit.io"],
-      role: ["Front-end Developer", "IPFS"],
+      technologies: ["React", "Node.js", "Adafruit.io"],
+      role: ["Fullstack Developer"],
       media: [
         { type: "image", url: "/images/forsaken.png" },
         { type: "image", url: "/images/webdashboard.PNG" },
