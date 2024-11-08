@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -14,6 +15,7 @@ import {
 import { Icon } from "@iconify/react";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 type MediaItem = {
   type: "image" | "video";
@@ -294,18 +296,20 @@ export default function Portfolio() {
             <h2 className="text-3xl font-bold mb-8 text-center">About Me</h2>
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="md:w-1/2 mb-8 md:mb-0">
-                <img
+                <Image
                   src="/images/pro5.jpg"
                   alt="Tran Quoc Dung"
                   className="rounded-full mx-auto"
+                  width={400}
+                  height={400}
                 />
               </div>
               <div className="md:w-1/2">
                 <p className="text-lg mb-4">
-                  Hello! I'm Tran Quoc Dung, a passionate Software Developer
-                  with a strong focus on creating efficient and innovative
-                  solutions. I specialize in JavaScript (including React
-                  library, NodeJS, NestJS, NextJS) and ASP.NET.{" "}
+                  Hello! I&apos;m Tran Quoc Dung, a passionate Software
+                  Developer with a strong focus on creating efficient and
+                  innovative solutions. I specialize in JavaScript (including
+                  React library, NodeJS, NestJS, NextJS) and ASP.NET.{" "}
                 </p>
                 <p className="text-lg mb-4">
                   My journey began at Bach Khoa University, where I majored in
@@ -322,9 +326,9 @@ export default function Portfolio() {
                   work.{" "}
                 </p>
                 <p className="text-lg mb-4">
-                  I'm excited to share my portfolio with you, showcasing some of
-                  the projects I've been working on. Let's create something
-                  amazing together!
+                  I&apos;m excited to share my portfolio with you, showcasing
+                  some of the projects I&apos;ve been working on. Let&apos;s
+                  create something amazing together!
                 </p>
                 <h3 className="text-2xl font-semibold mb-4">Skills</h3>
                 <div className="flex flex-wrap gap-2">
@@ -399,10 +403,13 @@ export default function Portfolio() {
                   className="bg-gray-700 rounded-lg overflow-hidden shadow-lg cursor-pointer"
                   onClick={() => handleViewProject(project)}
                 >
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
                     className="w-full h-48 object-cover"
+                    width={10000}
+                    height={10000}
+                    unoptimized
                   />
                   <div className="p-6">
                     <h3 className="text-xl font-semibold mb-2">
@@ -456,8 +463,8 @@ export default function Portfolio() {
             </h2>
             <div className="flex flex-col items-center">
               <p className="text-lg mb-6 text-center">
-                I'm always open to new opportunities and collaborations. Feel
-                free to reach out!
+                I&apos;m always open to new opportunities and collaborations.
+                Feel free to reach out!
               </p>
               <div className="flex space-x-6">
                 <a
@@ -536,10 +543,15 @@ export default function Portfolio() {
               </div>
 
               <div className="relative mb-4">
-                <img
+                <Image
                   src={selectedProject.media[currentMediaIndex].url}
-                  alt={`${selectedProject.title} - Image ${currentMediaIndex + 1}`}
+                  alt={`${selectedProject.title} - Image ${
+                    currentMediaIndex + 1
+                  }`}
                   className="w-full h-64 object-cover rounded-lg"
+                  width={10000}
+                  height={10000}
+                  unoptimized
                 />
 
                 {selectedProject.media.length > 1 && (
@@ -564,9 +576,13 @@ export default function Portfolio() {
                 )}
               </div>
 
-              <p className="text-gray-300 mb-4">{selectedProject.description}</p>
+              <p className="text-gray-300 mb-4">
+                {selectedProject.description}
+              </p>
               <div className="mb-4">
-                <h4 className="text-lg font-semibold mb-2">Technologies Used:</h4>
+                <h4 className="text-lg font-semibold mb-2">
+                  Technologies Used:
+                </h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.technologies.map((tech, index) => (
                     <span
