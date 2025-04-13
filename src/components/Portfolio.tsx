@@ -184,6 +184,7 @@ export default function Portfolio() {
   const navItems = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
+    { href: "#experience", label: "Work Experience" },
     { href: "#projects", label: "Projects" },
     { href: "#education", label: "Education" },
     { href: "#contact", label: "Contact" },
@@ -417,6 +418,34 @@ export default function Portfolio() {
           </div>
         </section>
 
+        <section id="experience" className="py-20 bg-gray-900">
+  <div className="container mx-auto px-6">
+    <h2 className="text-3xl font-bold mb-8 text-center">Work Experience</h2>
+    <div className="space-y-8">
+      <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-semibold mb-2">Front-end Developer - JDO GROUP</h3>
+        <p className="text-blue-400 mb-2">Ho Chi Minh City, Viet Nam (Jan 2024 – Present)</p>
+        <ul className="list-disc list-inside text-gray-300 space-y-2 mt-4">
+          <li>
+            Working as part of a front-end team to develop{" "}
+            <a href="https://web.jchat.io" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">
+              jChat
+            </a>
+            , a real-time messaging web application.
+          </li>
+          <li>
+            Implemented state management using Redux Toolkit, Redux-Saga, and Redux-Persist.
+          </li>
+          <li>Integrated WebSocket for real-time communication.</li>
+          <li>Implemented internationalization using i18n-next.</li>
+          <li>Participated in code reviews, team discussions, and Agile development processes.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
         <section id="projects" className="py-20">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold mb-8 text-center">My Projects</h2>
@@ -561,7 +590,7 @@ export default function Portfolio() {
 
       <footer className="bg-gray-900 py-6">
         <div className="container mx-auto px-6 text-center">
-          <p>&copy; 2024 Tran Quoc Dung. All rights reserved.</p>
+          <p>&copy; 2025 Tran Quoc Dung. All rights reserved.</p>
         </div>
       </footer>
 
