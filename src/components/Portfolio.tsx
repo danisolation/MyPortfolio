@@ -424,7 +424,7 @@ export default function Portfolio() {
     <div className="space-y-8">
       <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
         <h3 className="text-xl font-semibold mb-2">Front-end Developer - JDO GROUP</h3>
-        <p className="text-blue-400 mb-2">Ho Chi Minh City, Viet Nam (Jan 2025 – Present)</p>
+        <p className="text-blue-400 mb-2">Ho Chi Minh City, Viet Nam (Ocy 2024 – Present)</p>
         <ul className="list-disc list-inside text-gray-300 space-y-2 mt-4">
           <li>
             Working as part of a front-end team to develop{" "}
