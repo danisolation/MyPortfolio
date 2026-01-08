@@ -31,31 +31,31 @@ const socialLinks = [
     label: "Phone",
     value: personalInfo.phone,
     href: `tel:${personalInfo.phone}`,
-    color: "hover:text-emerald-400 hover:border-emerald-400/30 hover:bg-emerald-400/5",
+    color: "hover:text-blue-400 hover:border-blue-400/30 hover:bg-blue-400/5",
   },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-24 bg-slate-900/30">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-transparent to-transparent" />
+    <section id="contact" className="relative min-h-screen py-16 sm:py-20 lg:py-24 bg-slate-900/30 snap-start snap-always flex items-center">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Get In{" "}
-            <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               Touch
             </span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-cyan-400 mx-auto rounded-full mb-6" />
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+          <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto rounded-full mb-4 sm:mb-6" />
+          <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg px-2">
             I&apos;m always open to new opportunities, collaborations, and interesting projects.
             Feel free to reach out!
           </p>
@@ -68,29 +68,29 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative bg-slate-900/50 rounded-3xl p-8 md:p-12 border border-slate-800 overflow-hidden"
+            className="relative bg-slate-900/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 border border-slate-800 overflow-hidden"
           >
             {/* Background decorations */}
-            <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
+            <div className="absolute top-0 left-0 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-blue-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-cyan-500/10 rounded-full blur-3xl" />
 
             <div className="relative z-10">
-              <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="p-3 bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 rounded-xl">
-                  <Send className="w-6 h-6 text-emerald-400" />
+              <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-lg sm:rounded-xl">
+                  <Send className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-xl sm:text-2xl font-bold text-white">
                   Let&apos;s Connect
                 </h3>
               </div>
 
-              <div className="flex items-center justify-center gap-2 text-slate-400 mb-10">
-                <MapPin className="w-4 h-4" />
+              <div className="flex items-center justify-center gap-1.5 sm:gap-2 text-slate-400 mb-6 sm:mb-8 lg:mb-10 text-sm sm:text-base">
+                <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span>Ho Chi Minh City, Vietnam</span>
               </div>
 
               {/* Social links grid */}
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {socialLinks.map((link, index) => (
                   <motion.a
                     key={link.label}
@@ -103,16 +103,16 @@ export default function Contact() {
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`flex items-center gap-4 p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 transition-all duration-300 ${link.color}`}
+                    className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-800/50 rounded-lg sm:rounded-xl border border-slate-700/50 transition-all duration-300 ${link.color}`}
                   >
-                    <div className="p-2 bg-slate-700/50 rounded-lg">
-                      <link.icon className="w-5 h-5" />
+                    <div className="p-1.5 sm:p-2 bg-slate-700/50 rounded-md sm:rounded-lg">
+                      <link.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-slate-500 uppercase tracking-wider">
+                      <p className="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider">
                         {link.label}
                       </p>
-                      <p className="text-white font-medium truncate">
+                      <p className="text-white font-medium text-sm sm:text-base truncate">
                         {link.value}
                       </p>
                     </div>
@@ -126,13 +126,13 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="mt-10 text-center"
+                className="mt-6 sm:mt-8 lg:mt-10 text-center"
               >
                 <a
                   href={`mailto:${personalInfo.email}`}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg sm:rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 text-sm sm:text-base"
                 >
-                  <Mail className="w-5 h-5" />
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                   Send me an email
                 </a>
               </motion.div>

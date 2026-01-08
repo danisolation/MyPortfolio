@@ -30,10 +30,6 @@ export interface Experience {
   location: string;
   period: string;
   highlights: string[];
-  link?: {
-    url: string;
-    label: string;
-  };
 }
 
 export interface NavItem {

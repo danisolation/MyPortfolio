@@ -16,25 +16,20 @@ export const personalInfo: PersonalInfo = {
     "https://www.linkedin.com/in/tr%E1%BA%A7n-qu%E1%BB%91c-d%C5%A9ng-5317a1277/",
   image: "/images/pro5.jpg",
   bio: [
-    "Hello! I'm Tran Quoc Dung, a passionate Software Developer with a strong focus on creating efficient and innovative solutions. I specialize in JavaScript (including React library, NodeJS, NestJS, NextJS) and ASP.NET.",
-    "My journey began at Bach Khoa University, where I majored in Computer Science Engineer. During my studies, I developed a passion for software technology and completed various projects that laid the foundation for my career, and since then, I have been continuously honing my skills and expanding my knowledge. I thrive in dynamic environments where I can challenge myself and collaborate with others to bring ideas to life.",
-    "Beyond coding, I enjoy learning about new technologies, which keeps me inspired and motivated to always deliver my best work.",
-    "I'm excited to share my portfolio with you, showcasing some of the projects I've been working on. Let's create something amazing together!",
+    "Hi there, I'm Tran Quoc Dung 👋. I'm a passionate Software Developer focused on creating efficient and scalable web solutions.",
+    "With a strong command of JavaScript (React, NextJS, Node/NestJS), I specialize in turning complex requirements into seamless digital experiences.",
+    "I thrive on continuous learning and innovation. Take a look at my portfolio below to see what I've been working on—let's build something great!",
   ],
 };
 
 export const skills = [
-  "devicon:cplusplus",
   "devicon:javascript",
-  "devicon:csharp",
   "devicon:html5",
   "devicon:css3",
   "devicon:react",
   "devicon:nodejs",
   "devicon:nextjs",
   "devicon:express",
-  "devicon:nestjs",
-  "devicon:dotnetcore",
   "devicon:mongodb",
   "devicon:postgresql",
   "devicon:mysql",
@@ -151,18 +146,27 @@ export const experience: Experience[] = [
     title: "Front-end Developer",
     company: "JDO GROUP",
     location: "Ho Chi Minh City, Viet Nam",
-    period: "Oct 2024 – Present",
+    period: "Jan 2025 – Jun 2025",
     highlights: [
-      "Working as part of a front-end team to develop jChat, a real-time messaging web application.",
+      "Worked as part of a front-end team to develop jChat, a real-time messaging web application.",
       "Implemented state management using Redux Toolkit, Redux-Saga, and Redux-Persist.",
       "Integrated WebSocket for real-time communication.",
-      "Implemented internationalization using i18n-next.",
+      "Implemented internationalization using i18next.",
       "Participated in code reviews, team discussions, and Agile development processes.",
     ],
-    link: {
-      url: "https://web.jchat.io",
-      label: "jChat",
-    },
+  },
+  {
+    title: "Front-end Developer",
+    company: "Nexon Dev Vina",
+    location: "Ho Chi Minh City, Viet Nam",
+    period: "Jul 2025 – Present",
+    highlights: [
+      "Developed and maintained back-office systems for internal products.",
+      "Built an Application Tracking System (ATS) to manage and monitor application data.",
+      "Developed back-office tools for User Acquisition (UA) management and reporting.",
+      "Implemented back-office features for managing and configuring landing pages.",
+      "Collaborated with backend developers, QA, and product teams in an Agile environment.",
+    ],
   },
 ];
 

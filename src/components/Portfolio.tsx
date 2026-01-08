@@ -10,20 +10,22 @@ import {
   Contact,
   Footer,
 } from "./sections";
+import PageIndicator from "./ui/page-indicator";
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
+    <div className="bg-slate-950 text-white overflow-x-hidden">
       <Header />
-      <main>
+      <PageIndicator />
+      <main className="snap-y snap-mandatory h-screen overflow-y-auto scroll-smooth custom-scrollbar">
         <Hero />
         <About />
         <Experience />
         <Projects />
         <Education />
         <Contact />
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 }
