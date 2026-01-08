@@ -1,4 +1,4 @@
-/**
+git /**
  * Image Optimization Script
  * Converts PNG/JPG to WebP and GIF to MP4
  * 

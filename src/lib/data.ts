@@ -91,7 +91,7 @@ export const projects: Project[] = [
     role: ["Back-end Developer"],
     media: [
       { type: "image", url: "/images/EH.webp" },
-      { type: "image", url: "/images/demo.gif" },
+      { type: "video", url: "/images/demo.mp4" },
     ],
   },
   {
@@ -126,7 +126,7 @@ export const projects: Project[] = [
     role: ["Back-end Developer"],
     media: [
       { type: "image", url: "/images/mall.webp" },
-      { type: "image", url: "/images/mall.gif" },
+      { type: "video", url: "/images/mall.mp4" },
     ],
   },
 ];
