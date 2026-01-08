@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Briefcase, ExternalLink } from "lucide-react";
 import { experience } from "@/lib/data";
+import { motion } from "framer-motion";
+import { Briefcase } from "lucide-react";
 
 export default function Experience() {
   return (
