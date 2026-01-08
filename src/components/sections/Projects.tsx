@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, memo } from "react";
+import { useState, useMemo, useCallback, memo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, ExternalLink, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -13,6 +13,34 @@ const categories: { id: ProjectCategory; label: string }[] = [
   { id: "web", label: "Web Apps" },
 ];
 
+// Shimmer effect for loading placeholder
+const shimmer = (width: number, height: number) => `
+<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="g">
+      <stop stop-color="#1e293b" offset="20%" />
+      <stop stop-color="#334155" offset="50%" />
+      <stop stop-color="#1e293b" offset="70%" />
+    </linearGradient>
+  </defs>
+  <rect width="${width}" height="${height}" fill="#1e293b" />
+  <rect id="r" width="${width}" height="${height}" fill="url(#g)" />
+  <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
+</svg>`;
+
+const toBase64 = (str: string) =>
+  typeof window === "undefined"
+    ? Buffer.from(str).toString("base64")
+    : window.btoa(str);
+
+// Preload image utility
+const preloadImage = (src: string) => {
+  if (typeof window !== "undefined") {
+    const img = new window.Image();
+    img.src = src;
+  }
+};
+
 // Memoized Project Card Component
 const ProjectCard = memo(function ProjectCard({
   project,
@@ -23,6 +51,9 @@ const ProjectCard = memo(function ProjectCard({
   index: number;
   onViewProject: (project: Project) => void;
 }) {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const isGif = project.image.endsWith(".gif");
+
   const handleClick = useCallback(() => {
     onViewProject(project);
   }, [project, onViewProject]);
@@ -30,6 +61,19 @@ const ProjectCard = memo(function ProjectCard({
   const handleLinkClick = useCallback((event: React.MouseEvent) => {
     event.stopPropagation();
   }, []);
+
+  const handleImageLoad = useCallback(() => {
+    setIsImageLoaded(true);
+  }, []);
+
+  // Preload modal images on hover
+  const handleMouseEnter = useCallback(() => {
+    project.media.forEach((media) => {
+      if (media.type === "image" && !media.url.endsWith(".gif")) {
+        preloadImage(media.url);
+      }
+    });
+  }, [project.media]);
 
   return (
     <motion.div
@@ -40,17 +84,30 @@ const ProjectCard = memo(function ProjectCard({
       transition={{ duration: 0.4, delay: index * 0.1 }}
       className="group cursor-pointer"
       onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
     >
       <div className="relative bg-slate-900/80 rounded-xl sm:rounded-2xl overflow-hidden border border-slate-800 hover:border-blue-500/30 transition-all duration-500">
         {/* Image container */}
-        <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden">
+        <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden bg-slate-800">
+          {/* Loading skeleton */}
+          {!isImageLoaded && (
+            <div className="absolute inset-0 bg-slate-800 animate-pulse" />
+          )}
           <Image
             src={project.image}
             alt={project.title}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-            priority={index < 3}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+            className={`object-cover transition-all duration-500 group-hover:scale-110 ${
+              isImageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            quality={isGif ? 100 : 75}
+            priority={index < 2}
+            loading={index < 2 ? "eager" : "lazy"}
+            onLoad={handleImageLoad}
+            placeholder={isGif ? "empty" : "blur"}
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(400, 300))}`}
+            unoptimized={isGif}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
           
@@ -111,37 +168,81 @@ const MediaViewer = memo(function MediaViewer({
   media,
   currentIndex,
   projectTitle,
+  isActive,
 }: {
   media: MediaItem;
   currentIndex: number;
   projectTitle: string;
+  isActive: boolean;
 }) {
-  const isGif = media.url.endsWith('.gif');
-  
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const isGif = media.url.endsWith(".gif");
+
+  // Reset loading state when media changes
+  useEffect(() => {
+    setIsLoaded(false);
+    setHasError(false);
+  }, [media.url]);
+
+  const handleLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const handleError = useCallback(() => {
+    setHasError(true);
+    setIsLoaded(true);
+  }, []);
+
   if (media.type === "video") {
     return (
       <video
         src={media.url}
         className="w-full h-full object-contain"
         controls
-        autoPlay
+        autoPlay={isActive}
         muted
         loop
         playsInline
+        onLoadedData={handleLoad}
       />
     );
   }
 
+  if (hasError) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-slate-800">
+        <span className="text-slate-400 text-sm">Failed to load image</span>
+      </div>
+    );
+  }
+
   return (
-    <Image
-      src={media.url}
-      alt={`${projectTitle} - ${currentIndex + 1}`}
-      fill
-      sizes="(max-width: 1024px) 100vw, 896px"
-      className="object-contain"
-      unoptimized={isGif}
-      priority
-    />
+    <>
+      {/* Loading skeleton for modal images */}
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-900">
+          <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+        </div>
+      )}
+      <Image
+        src={media.url}
+        alt={`${projectTitle} - ${currentIndex + 1}`}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 896px"
+        className={`object-contain transition-opacity duration-300 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        quality={isGif ? 100 : 85}
+        unoptimized={isGif}
+        priority={isActive}
+        loading={isActive ? "eager" : "lazy"}
+        onLoad={handleLoad}
+        onError={handleError}
+        placeholder={isGif ? "empty" : "blur"}
+        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(896, 504))}`}
+      />
+    </>
   );
 });
 
@@ -201,6 +302,7 @@ const ProjectModal = memo(function ProjectModal({
               media={project.media[currentMediaIndex]}
               currentIndex={currentMediaIndex}
               projectTitle={project.title}
+              isActive={true}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent pointer-events-none" />
 
@@ -223,19 +325,38 @@ const ProjectModal = memo(function ProjectModal({
                   <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
 
-                {/* Indicators */}
-                <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
-                  {project.media.map((_, mediaIndex) => (
-                    <button
-                      key={mediaIndex}
-                      onClick={() => onSelectMedia(mediaIndex)}
-                      className={`h-1.5 sm:h-2 rounded-full transition-all ${
-                        mediaIndex === currentMediaIndex
-                          ? "bg-blue-400 w-4 sm:w-6"
-                          : "bg-slate-600 hover:bg-slate-500 w-1.5 sm:w-2"
-                      }`}
-                    />
-                  ))}
+                {/* Thumbnail indicators */}
+                <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 bg-slate-900/80 backdrop-blur-sm rounded-lg p-1.5 sm:p-2">
+                  {project.media.map((mediaItem, mediaIndex) => {
+                    const isGifThumb = mediaItem.url.endsWith(".gif");
+                    return (
+                      <button
+                        key={mediaIndex}
+                        onClick={() => onSelectMedia(mediaIndex)}
+                        className={`relative w-8 h-6 sm:w-12 sm:h-8 rounded overflow-hidden transition-all ${
+                          mediaIndex === currentMediaIndex
+                            ? "ring-2 ring-blue-400 ring-offset-1 ring-offset-slate-900"
+                            : "opacity-60 hover:opacity-100"
+                        }`}
+                      >
+                        {mediaItem.type === "video" ? (
+                          <div className="w-full h-full bg-slate-700 flex items-center justify-center">
+                            <span className="text-[8px] text-white">▶</span>
+                          </div>
+                        ) : (
+                          <Image
+                            src={mediaItem.url}
+                            alt={`Thumbnail ${mediaIndex + 1}`}
+                            fill
+                            sizes="48px"
+                            className="object-cover"
+                            quality={30}
+                            unoptimized={isGifThumb}
+                          />
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </>
             )}
