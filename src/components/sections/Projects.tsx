@@ -196,16 +196,26 @@ const MediaViewer = memo(function MediaViewer({
 
   if (media.type === "video") {
     return (
-      <video
-        src={media.url}
-        className="w-full h-full object-contain"
-        controls
-        autoPlay={isActive}
-        muted
-        loop
-        playsInline
-        onLoadedData={handleLoad}
-      />
+      <>
+        {!isLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-900">
+            <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+          </div>
+        )}
+        <video
+          src={media.url}
+          className={`w-full h-full object-contain transition-opacity duration-300 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          controls
+          autoPlay={isActive}
+          muted
+          loop
+          playsInline
+          onLoadedData={handleLoad}
+          onError={handleError}
+        />
+      </>
     );
   }
 
