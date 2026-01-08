@@ -51,12 +51,15 @@ export function smoothScrollTo(
   requestAnimationFrame(animation);
 }
 
-export function scrollToSection(sectionId: string, duration = 1500): void {
+export function scrollToSection(sectionId: string, instant = true): void {
   const section = document.getElementById(sectionId);
   const mainElement = document.querySelector("main") as HTMLElement;
 
   if (section && mainElement) {
-    const targetPosition = section.offsetTop;
-    smoothScrollTo(mainElement, targetPosition, { duration });
+    if (instant) {
+      mainElement.scrollTop = section.offsetTop;
+    } else {
+      smoothScrollTo(mainElement, section.offsetTop, { duration: 600 });
+    }
   }
 }

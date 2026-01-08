@@ -61,7 +61,7 @@ export default function Header() {
     (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       event.preventDefault();
       const targetId = href.replace("#", "");
-      scrollToSection(targetId, 1500);
+      scrollToSection(targetId);
       setActiveSection(targetId);
       setIsMobileMenuOpen(false);
       window.history.pushState({}, "", href);

@@ -43,7 +43,7 @@ export default function PageIndicator() {
   }, []);
 
   const handleScrollToSection = (sectionId: string) => {
-    scrollToSection(sectionId, 1500);
+    scrollToSection(sectionId);
   };
 
   return (
