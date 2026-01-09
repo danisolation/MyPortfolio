@@ -7,7 +7,7 @@ import { scrollToSection } from "@/lib/smooth-scroll";
 
 export default function Footer() {
   const scrollToTop = () => {
-    scrollToSection("home", 1500);
+    scrollToSection("home", true);
   };
 
   const currentYear = new Date().getFullYear();
