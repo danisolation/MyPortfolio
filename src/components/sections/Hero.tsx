@@ -18,7 +18,7 @@ export default function Hero() {
   const textY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
 
   const handleScrollToSection = (sectionId: string) => {
-    scrollToSection(sectionId, 1500);
+    scrollToSection(sectionId, true);
   };
 
   return (
